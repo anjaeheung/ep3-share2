@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>꽃의 장 — 「공유 2」</title>
+<style>
+  :root{--bg:#0c0e13;--panel:#151823;--line:#2a3040;--ink:#e9ecf2;--muted:#8b93a6;
+    --shizu:#ff9ecf;--mina:#7ee0c0;--gold:#ffd54a;}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{background:radial-gradient(130% 100% at 50% 0%,#171522 0%,var(--bg) 60%);color:var(--ink);
+    font-family:"Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif;
+    display:flex;flex-direction:column;align-items:center;height:100%;overflow:hidden;}
+  #top{width:100%;max-width:720px;padding:12px 18px 8px;text-align:center}
+  #top h1{margin:0;font-size:15px;letter-spacing:3px;color:#dfe3ea;font-weight:700}
+  #top .sub{font-size:11.5px;color:var(--muted);margin-top:3px;letter-spacing:2px}
+  #stage{width:100%;max-width:720px;flex:1;display:flex;flex-direction:column;min-height:0;padding:0 14px 10px;cursor:pointer}
+  #log{flex:1;overflow-y:auto;padding:10px 4px 6px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth}
+  .row{display:flex}.row.L{justify-content:flex-start}.row.R{justify-content:flex-end}.row.C{justify-content:center}
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .narr{align-self:stretch;padding:4px 6px 4px 16px;border-left:3px solid rgba(139,147,166,.5);
+        color:#c6cdda;font-style:italic;line-height:1.78;font-size:15px;white-space:pre-wrap;animation:rise .22s ease}
+  .bubble{position:relative;max-width:82%;background:var(--panel);border:1px solid var(--line);
+          border-left:4px solid var(--line);border-radius:12px;padding:10px 14px;animation:rise .22s ease}
+  .row.R .bubble{border-left:1px solid var(--line);border-right:4px solid var(--line)}
+  .bubble .name{font-size:12px;font-weight:800;margin-bottom:3px}
+  .bubble .txt{font-size:15px;line-height:1.65;color:#eef1f6;white-space:pre-wrap}
+  .divider{align-self:center;text-align:center;color:#9aa3b5;font-size:12.5px;font-weight:700;letter-spacing:2px;
+           margin:10px 0 2px;padding:7px 18px;border-top:1px solid #2e3445;border-bottom:1px solid #2e3445;animation:rise .22s ease}
+  .rules{align-self:stretch;background:#161320;border:1px solid #3a2e48;border-radius:12px;padding:13px 16px;
+         line-height:1.7;font-size:13px;color:#cfd6e4;white-space:pre-wrap;animation:rise .22s ease}
+  .rules .rtag{display:block;font-size:12.5px;font-weight:800;color:var(--gold);margin-bottom:6px;letter-spacing:1px}
+  #hint{height:22px;text-align:center;color:var(--muted);font-size:12px;padding-top:2px;user-select:none;animation:pulse 1.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:.4}50%{opacity:.9}}
+</style>
+</head>
+<body>
+  <div id="top"><h1>「공유 2」</h1><div class="sub">제 3 편 · 꽃의 장</div></div>
+  <div id="stage"><div id="log"></div><div id="hint">▼ 클릭하여 계속</div></div>
+<script>
+const STORY=[
+ {rules:{t:"📖 낭독 안내", b:"· 카쵸우 시즈무 대사 → 시즈무 담당이 낭독\n· 카자마 미나토 대사 → 토바 카나우 담당이 낭독 (미나토 부재 — 회상/대변)\n분홍=카쵸우 시즈무 · 초록=카자마 미나토"}},
+ {div:"꽃의 장 3 · 「공유 ②」 — 어제 사무소에서의 회상"},
+ {n:"어제, 탐정사무소 《나가부츠》에서 있었던 일의 회상입니다."},
+ {s:"카자마 미나토", t:"좋은 아침입니다~"},
+ {s:"카쵸우 시즈무", t:"……"},
+ {s:"카자마 미나토", t:"아, 시즈무 씨! 좋은 아침이에요! 두 분은 외출하셨어요?"},
+ {s:"카쵸우 시즈무", t:"……"},
+ {s:"카자마 미나토", t:"오늘도 헬멧 멋지네요! 그거 계속 쓰고 있으면 안 피곤하세요?"},
+ {s:"카쵸우 시즈무", t:"……"},
+ {s:"카자마 미나토", t:"역시 익숙해지는 걸까요? 인간은 적응하는 생물이니까~. 아, 그건, 그렇지 시즈무 씨!!"},
+ {s:"카쵸우 시즈무", t:"……하아. 여전히 멘탈만은 강한 녀석이군. 내가 무시하는 거 정도는 눈치챘을 텐데?"},
+ {s:"카자마 미나토", t:"에!? 늘 그렇듯 말수가 적은 것뿐이라 생각했죠! 그래서, 시즈무 씨! 우편함에 의뢰서가 들어와 있었어요!"},
+ {s:"카쵸우 시즈무", t:"개봉해서 읽어 봐."},
+ {s:"카자마 미나토", t:"알겠습니다! ‘탐정사무소 『나가구츠』 님, 오늘 밤, 야미쿠라 창고에서 살인사건이 일어납니다. 부디 해결해 주시지 않겠습니까? 21시 45분에, 야미쿠라 창고로 와 주세요.’ ……이게 다네요. 수신인도 없어요."},
+ {s:"카쵸우 시즈무", t:"수상해 빠졌군. 함정일 가능성도 있다. 쓰레기통에 버려 둬. 탐정이란 직업은 여러 방면에서 원한을 사니까."},
+ {s:"카자마 미나토", t:"그, 그래도, 정말로 살인사건이 일어나면 어쩌죠?"},
+ {s:"카쵸우 시즈무", t:"어쩌긴 뭘 어째. 미나토, 너는 모든 살인사건을 막을 셈이냐? 우리 일은 의뢰받은 사건을 해결하는 거다. 그것뿐이야."},
+ {s:"카자마 미나토", t:"의뢰받았잖아요!!"},
+ {s:"카쵸우 시즈무", t:"이런 종잇조각 하나 보내 온 걸로는, 정식 의뢰라고 할 수 없어. 의뢰료가 지불될지조차 모르는걸."},
+ {s:"카자마 미나토", t:"시즈무 씨, 저, 못 본 척 안 할 거예요!"},
+ {s:"카쵸우 시즈무", t:"잘 들어, 미나토? 탐정은 신도 부처도 아니야. 토오루 씨와 카구야 씨를 따라다니며, 몇몇 사건을 겪고 들떠 있는 거 아니냐? 우리가 맡을 건, 눈앞의 의뢰자뿐이다."},
+ {s:"카자마 미나토", t:"시즈무 씨는, 눈앞의 의뢰자와 눈도 안 맞추면서!!"},
+ {s:"카쵸우 시즈무", t:"아아!? 어이, 미나토! 어디로──. ……젠장."},
+ {div:"꽃의 장 3 · 「공유 ③」"},
+ {s:"카자마 미나토", t:"──그 뒤에, 미나토는 야미쿠라 창고로 향한 거겠죠."},
+ {s:"카자마 미나토", t:"과연, 미나토답네요."},
+ {s:"카쵸우 시즈무", t:"나는, 평범해지고 싶다. ……그러니까, 이런 이능은 필요 없다. 남을 바꾸는 건 어렵다. 그렇다면, 내가 바뀌면 된다. 이능을 써서 범죄를 일으키는 놈들 탓에, 이능자는 위험하다고 여겨진다. 그러니까, 나는, 탐정으로서 이능 범죄자를 잡는다."},
+ {s:"카자마 미나토", t:"저는, 평범해지고 싶습니다. 그러려면 근본을 바꿀 필요가 있더군요. 어째서, 행복하게 살고 싶을 뿐인 우리가, 바뀌어야만 하는 거죠? 저는, 우리인 채로, 평범을 쟁취하겠습니다. 그걸 바라는 게, 이상한 일일까요?"},
+ {s:"카쵸우 시즈무", t:"이 얘긴 계속해 봤자, 평생 평행선이다. 어느 쪽이 옳은지 따위, 쉽게 정할 수 있는 게 아니겠지."},
+ {s:"카자마 미나토", t:"알고 있어요. 하지만, 마지막에 남는 건 어느 한쪽뿐입니다. 둘 다 공존할 수는 없어요."},
+ {s:"카쵸우 시즈무", t:"그럼, 나와 승부해라."},
+ {s:"카자마 미나토", t:"승부, 인가요?"},
+ {s:"카쵸우 시즈무", t:"지금부터 우리는, 미나토를 구해 낸다. 거기에 이견은 없겠지?"},
+ {s:"카자마 미나토", t:"네, 그러려고 온 거니까요."},
+ {s:"카쵸우 시즈무", t:"미나토는 아마…… 헤매고 있을 거다. 너희가 옳은지, 우리가 옳은지."},
+ {s:"카자마 미나토", t:"그런 건 그녀를 보면 알 수 있죠. 다양한 시점에서 사물을 부감해 볼 수 있는 것, 그게 미나토 씨의 좋은 점이니까요."},
+ {s:"카쵸우 시즈무", t:"그러니까, 미나토를 구하고, 그 녀석이 정하게 하자."},
+ {s:"카자마 미나토", t:"구하는 건 전제군요."},
+ {s:"카쵸우 시즈무", t:"당연하지, 나는 동료를 버리지 않는다."},
+ {s:"카자마 미나토", t:"당연한 거였네요. 저도 가족을 버리는 일은 하지 않습니다. ……알겠습니다. 조건을 받아들이죠. 미나토 씨는 우리와도 지냈고, 당신들과도 지냈습니다. 그녀가 어떻게 생각하고, 어떤 결론에 이르렀는지, 그 답은 알고 싶군요."},
+ {s:"카쵸우 시즈무", t:"뭐, 우리의 시시한 말다툼의 결착이 날 뿐이지만."},
+ {s:"카자마 미나토", t:"쭉 말싸움하는 것보단 건설적이네요. 그럼……, 조사를 시작할까요?"},
+];
+const SPK={
+ "카쵸우 시즈무":{c:"var(--shizu)",side:"L"},
+ "카자마 미나토":{c:"var(--mina)",side:"R"},
+};
+function spk(n){ return SPK[n]||{c:"#b8c0cc",side:"C"}; }
+const log=document.getElementById('log'),stage=document.getElementById('stage'),hint=document.getElementById('hint');
+let i=0,done=false;
+function el(t,a){const e=document.createElement(t);for(const k in a)e.setAttribute(k,a[k]);return e;}
+function add(n){log.appendChild(n);log.scrollTop=log.scrollHeight;}
+function narr(t){const d=el('div',{class:'narr'});d.appendChild(document.createTextNode(t));add(d);}
+function dlg(name,text){const s=spk(name);const row=el('div',{class:'row '+s.side});const b=el('div',{class:'bubble'});b.style.borderColor=s.c;
+  const nm=el('div',{class:'name'});nm.style.color=s.c;nm.textContent=name;const tx=el('div',{class:'txt'});tx.textContent=text;
+  b.appendChild(nm);b.appendChild(tx);row.appendChild(b);add(row);}
+function dividerBox(t){const row=el('div',{class:'row C'});const d=el('div',{class:'divider'});d.textContent=t;row.appendChild(d);add(row);}
+function rulesBox(o){const d=el('div',{class:'rules'});const tg=el('span',{class:'rtag'});tg.textContent=o.t;d.appendChild(tg);d.appendChild(document.createTextNode(o.b));add(d);}
+function renderStep(s){ if(s.rules)rulesBox(s.rules); else if(s.div!=null)dividerBox(s.div); else if(s.n!=null)narr(s.n); else dlg(s.s,s.t); }
+function advance(){
+  if(done)return;
+  if(i>=STORY.length){done=true;hint.style.display='none';return;}
+  renderStep(STORY[i]); i++;
+  if(i>=STORY.length){ done=true; hint.style.display='none'; }
+}
+stage.addEventListener('click',e=>{if(e.target.closest('button'))return;advance();});
+advance();
+</script>
+</body>
+</html>
