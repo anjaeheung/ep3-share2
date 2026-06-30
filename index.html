@@ -7,7 +7,7 @@
 <title>꽃의 장 — 「공유 2」</title>
 <style>
   :root{--bg:#0c0e13;--panel:#151823;--line:#2a3040;--ink:#e9ecf2;--muted:#8b93a6;
-    --shizu:#ff9ecf;--mina:#7ee0c0;--gold:#ffd54a;}
+    --shizu:#ff9ecf;--mina:#7ee0c0;--toba:#b88cff;--gold:#ffd54a;}
   *{box-sizing:border-box}
   html,body{margin:0;height:100%}
   body{background:radial-gradient(130% 100% at 50% 0%,#171522 0%,var(--bg) 60%);color:var(--ink);
@@ -41,8 +41,7 @@
   <div id="stage"><div id="log"></div><div id="hint">▼ 클릭하여 계속</div></div>
 <script>
 const STORY=[
- {rules:{t:"📖 낭독 안내", b:"· 카쵸우 시즈무 대사 → 시즈무 담당이 낭독\n· 카자마 미나토(공유② 회상)·토바 카나우(공유③) 대사 → 토바 카나우 담당이 낭독\n분홍=카쵸우 시즈무 · 초록=카자마 미나토 / 토바 카나우"}},
- {div:"꽃의 장 3 · 「공유 ②」 — 어제 사무소에서의 회상"},
+ {rules:{t:"📖 낭독 안내", b:"· 카쵸우 시즈무 대사 → 시즈무 담당이 낭독\n· 카자마 미나토(회상)·토바 카나우 대사 → 토바 카나우 담당이 낭독\n분홍=카쵸우 시즈무 · 초록=카자마 미나토 · 보라=토바 카나우"}},
  {n:"어제, 탐정사무소 《나가부츠》에서 있었던 일의 회상입니다."},
  {s:"카자마 미나토", t:"좋은 아침입니다~"},
  {s:"카쵸우 시즈무", t:"……"},
@@ -64,7 +63,6 @@ const STORY=[
  {s:"카쵸우 시즈무", t:"잘 들어, 미나토? 탐정은 신도 부처도 아니야. 토오루 씨와 카구야 씨를 따라다니며, 몇몇 사건을 겪고 들떠 있는 거 아니냐? 우리가 맡을 건, 눈앞의 의뢰자뿐이다."},
  {s:"카자마 미나토", t:"시즈무 씨는, 눈앞의 의뢰자와 눈도 안 맞추면서!!"},
  {s:"카쵸우 시즈무", t:"아아!? 어이, 미나토! 어디로──. ……젠장."},
- {div:"꽃의 장 3 · 「공유 ③」"},
  {s:"토바 카나우", t:"──그 뒤에, 미나토는 야미쿠라 창고로 향한 거겠죠."},
  {s:"토바 카나우", t:"과연, 미나토답네요."},
  {s:"카쵸우 시즈무", t:"나는, 평범해지고 싶다. ……그러니까, 이런 이능은 필요 없다. 남을 바꾸는 건 어렵다. 그렇다면, 내가 바뀌면 된다. 이능을 써서 범죄를 일으키는 놈들 탓에, 이능자는 위험하다고 여겨진다. 그러니까, 나는, 탐정으로서 이능 범죄자를 잡는다."},
@@ -87,7 +85,7 @@ const STORY=[
 const SPK={
  "카쵸우 시즈무":{c:"var(--shizu)",side:"L"},
  "카자마 미나토":{c:"var(--mina)",side:"R"},
- "토바 카나우":{c:"var(--mina)",side:"R"},
+ "토바 카나우":{c:"var(--toba)",side:"R"},
 };
 function spk(n){ return SPK[n]||{c:"#b8c0cc",side:"C"}; }
 const log=document.getElementById('log'),stage=document.getElementById('stage'),hint=document.getElementById('hint');
